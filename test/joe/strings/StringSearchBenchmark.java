@@ -1,6 +1,6 @@
 package joe.strings;
 
-import joe.strings.testfw.AbstractStringSearchingTester;
+import static joe.strings.testfw.SampleStrings.*;
 
 import com.google.caliper.Benchmark;
 import com.google.caliper.Param;
@@ -8,37 +8,40 @@ import com.google.caliper.runner.CaliperMain;
 import com.google.common.base.Optional;
 
 public class StringSearchBenchmark extends Benchmark {
-	enum Sample {
-		ONE_CHAR("a"),
-		SENTENCE(AbstractStringSearchingTester.SENTENCE),
-		TWELFTH_NIGHT(AbstractStringSearchingTester.TWELFTH_NIGHT),
+	enum BenchmarkCases {
+		ONE_CHAR_in_SENTENCE(SINGLE_CHAR, SENTENCE),
+		WORD_in_SENTENCE(WORD, SENTENCE),
+		SENTENCE_in_LONGER_SENTENCE(SENTENCE, WORD + SENTENCE + WORD),
+		SENTENCE_in_SHAKESPEARE(SENTENCE, TWELFTH_NIGHT),
+		LONG_MISSING_in_LONGER(HUNDRED_A_B, THOUSAND_A),
+		PARAGRAPH_in_SHAKESPEARE(PARAGRAPH, TWELFTH_NIGHT),
 		;
+		
+		private final String needle;
+		private final String haystack;
 
-		private final String value;
-
-		private Sample(String value) {
-			this.value = value;
+		private BenchmarkCases(String needle, String haystack) {
+			this.haystack = haystack;
+			this.needle = needle;
 		}
 	}
 
 	@Param
 	private StringSearchAlgorithms algorithm;
-	@Param(value= {"ONE_CHAR", "SENTENCE"})
-	private Sample needle;
 	@Param
-	private Sample haystack;
+	private BenchmarkCases params;
 
 	private StringMatcher matcher;
 
 	@Override
 	protected void setUp() throws Exception {
-		matcher = algorithm.get().matchPattern(needle.value);
+		matcher = algorithm.get().matchPattern(params.needle);
 	}
 
 	public int timeSearch(int reps) {
 		int found = 0;
 		for (int i = 0; i < reps; i++) {
-			Optional<StringMatch> search = matcher.search(haystack.value);
+			Optional<StringMatch> search = matcher.search(params.haystack);
 			if (search.isPresent()) {
 				found++;
 			}

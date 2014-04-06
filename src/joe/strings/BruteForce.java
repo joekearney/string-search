@@ -1,6 +1,10 @@
 package joe.strings;
 
-
+/**
+ * Brute force approach to string searching. For every index into the haystack we test to see whether the needle matches the next characters
+ * 
+ * @author Joe Kearney
+ */
 public final class BruteForce extends AbstractSequentialMultiPatternStringSearchAlgorithm {
 	@Override
 	public StringMatcher matchPattern(String needle) {

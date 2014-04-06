@@ -14,20 +14,7 @@ import com.google.common.base.Optional;
 import com.google.common.collect.testing.AbstractTester;
 import com.google.common.io.Resources;
 
-public abstract class AbstractStringSearchingTester extends AbstractTester<StringSearchAlgorithmTestSubjectGenerator> {
-	public static final String EMPTY_STRING = "";
-	public static final String SINGLE_CHAR = "a";
-	public static final String SENTENCE = "This fellow's wise enough to play the fool;";
-	public static final String TWELFTH_NIGHT;
-	static {
-		try {
-			URL url = Resources.getResource("joe/strings/twelfth-night.txt");
-			TWELFTH_NIGHT = Resources.toString(url, Charsets.UTF_8);
-		} catch (IOException e) {
-			throw new RuntimeException("Failed to load long text", e);
-		}
-	}
-	
+public abstract class AbstractStringSearchTester extends AbstractTester<StringSearchAlgorithmTestSubjectGenerator> {
 	protected void expectNoMatch(String needle, String haystack) {
 		Optional<StringMatch> match = getSubjectGenerator().createTestSubject().matchPattern(needle).search(haystack);
 		assertFalse("Expected no match, found: " + match, match.isPresent());

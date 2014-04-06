@@ -1,5 +1,6 @@
 package joe.strings.testfw;
 
+import static joe.strings.testfw.SampleStrings.*;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import joe.strings.StringMatch;
@@ -8,7 +9,7 @@ import joe.strings.testfw.StringSearchFeature.Require;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableSet;
 
-public class SimpleExamplesTester extends AbstractStringSearchingTester {
+public class SimpleExamplesTester extends AbstractStringSearchTester {
 	public void testShortStringMatchesSelf() throws Exception {
 		expectMatchesSelf(SINGLE_CHAR);
 	}
@@ -38,7 +39,10 @@ public class SimpleExamplesTester extends AbstractStringSearchingTester {
 		assertThat(match.get().getMatchIndex(), is(1));
 		assertThat(match.get().getMatchedText().toString(), is(char2));
 	}
-	
+	public void testPathologicalMiss() throws Exception {
+		expectNoMatch(HUNDRED_A_B, THOUSAND_A);
+	}
+
 	private void expectMatchesSelf(String text) {
 		StringMatch match = searchExpectingPresent(text, text);
 		assertThat(match.getMatchIndex(), is(0));
