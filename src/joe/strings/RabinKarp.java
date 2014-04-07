@@ -2,12 +2,12 @@ package joe.strings;
 
 /**
  * String searching that keeps track of a hash of a rolling window of the haystack the same length as the needle.
- * 
+ *
  * @author Joe Kearney
  */
 public final class RabinKarp extends AbstractSequentialMultiPatternStringSearchAlgorithm {
 	@Override
-	public StringMatcher matchPattern(String needle) {
+	public StringMatcher matchPattern(CharSequence needle) {
 		return new RabinKarpMatcher(needle);
 	}
 
@@ -15,7 +15,7 @@ public final class RabinKarp extends AbstractSequentialMultiPatternStringSearchA
 		private final int exitMultiplier;
 		private final int needleHash;
 
-		public RabinKarpMatcher(String needle) {
+		public RabinKarpMatcher(CharSequence needle) {
 			super(needle);
 			this.exitMultiplier = exitMult(needle.length());
 			needleHash = hash(needle, needle.length());
@@ -47,10 +47,10 @@ public final class RabinKarp extends AbstractSequentialMultiPatternStringSearchA
 		private int updateWindowHash(CharSequence haystack, int windowLength, int windowHash, int i) {
 			int outgoing = haystack.charAt(i - windowLength);
 			int incoming = haystack.charAt(i);
-			
+
 			windowHash -= exitMultiplier * outgoing;
 			windowHash = (windowHash * 31) + incoming;
-			
+
 			return windowHash;
 		}
 
@@ -66,7 +66,7 @@ public final class RabinKarp extends AbstractSequentialMultiPatternStringSearchA
 		private static int hash(CharSequence haystack, int length) {
 			int hash = 0;
 			for (int i = 0; i < length; i++) {
-				hash = (hash * 31) + (int) haystack.charAt(i);
+				hash = (hash * 31) + haystack.charAt(i);
 			}
 			return hash;
 		}

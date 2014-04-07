@@ -5,18 +5,18 @@ import static com.google.common.base.Preconditions.checkArgument;
 import com.google.common.annotations.VisibleForTesting;
 
 /**
- * 
- * 
+ *
+ *
  * @author Joe Kearney
  */
 public class KnuthMorrisPratt extends AbstractSequentialMultiPatternStringSearchAlgorithm {
 	@Override
-	public StringMatcher matchPattern(String needle) {
+	public StringMatcher matchPattern(CharSequence needle) {
 		return new KnuthMorrisPrattMatcher(needle, computeJumpTable(needle));
 	}
 
 	@VisibleForTesting
-	static int[] computeJumpTable(String needle) {
+	static int[] computeJumpTable(CharSequence needle) {
 		checkArgument(needle.length() > 0, "Can't compute a KMP jumpTable for a zero-length pattern");
 		if (needle.length() == 1) {
 			return new int[] { -1 };
@@ -51,7 +51,7 @@ public class KnuthMorrisPratt extends AbstractSequentialMultiPatternStringSearch
 	private static final class KnuthMorrisPrattMatcher extends AbstractStringMatcher {
 		private final int[] jumpTable;
 
-		public KnuthMorrisPrattMatcher(String needle, int[] jumpTable) {
+		public KnuthMorrisPrattMatcher(CharSequence needle, int[] jumpTable) {
 			super(needle);
 			this.jumpTable = jumpTable;
 		}
@@ -70,7 +70,7 @@ public class KnuthMorrisPratt extends AbstractSequentialMultiPatternStringSearch
 					}
 				} else {
 					int jump = jumpTable[i];
-					
+
 					m = m + i - jump;
 					if (jump > 0) {
 						i = i - jump;

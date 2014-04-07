@@ -3,12 +3,12 @@ package joe.strings;
 import com.google.common.base.Optional;
 
 public abstract class AbstractStringMatcher implements StringMatcher {
-	protected final String needle;
+	protected final CharSequence needle;
 
-	public AbstractStringMatcher(String needle) {
+	public AbstractStringMatcher(CharSequence needle) {
 		this.needle = needle;
 	}
-	
+
 	@Override
 	public final Optional<StringMatch> search(CharSequence haystack) {
 		int windowLength = needle.length();
@@ -23,7 +23,7 @@ public abstract class AbstractStringMatcher implements StringMatcher {
 
 	/**
 	 * Standard implementation of an equality check between the needle and a portion of the haystack, running in time linear in the length of the needle.
-	 * 
+	 *
 	 * @param haystack string in which to test
 	 * @param from index at which to start in the haystack
 	 * @return {@code true} iff the next characters in the haystack are equal to the needle
