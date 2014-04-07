@@ -2,17 +2,11 @@ package joe.strings.testfw;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
-
-import java.io.IOException;
-import java.net.URL;
-
 import joe.strings.MultiPatternStringSearchAlgorithm;
 import joe.strings.StringMatch;
 
-import com.google.common.base.Charsets;
 import com.google.common.base.Optional;
 import com.google.common.collect.testing.AbstractTester;
-import com.google.common.io.Resources;
 
 public abstract class AbstractStringSearchTester extends AbstractTester<StringSearchAlgorithmTestSubjectGenerator> {
 	protected void expectNoMatch(String needle, String haystack) {
