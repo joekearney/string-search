@@ -1,7 +1,8 @@
 package joe.strings;
 
 /**
- * Implementation of {@link StringSearchAlgorithm} delegating to {@link String#indexOf(String)}.
+ * Implementation of {@link StringSearchAlgorithm} delegating to {@link String#indexOf(String)}. This is really fast, likely due to intrinsified instructions in
+ * the SSE 4.2 instruction set. // TODO benchmark without intrinsifying this?
  *
  * @author Joe Kearney
  */

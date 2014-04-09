@@ -11,6 +11,8 @@ import com.google.common.annotations.VisibleForTesting;
  * @author Joe Kearney
  */
 public class KnuthMorrisPratt extends AbstractSequentialMultiPatternStringSearchAlgorithm {
+	private static final boolean DEBUG = false;
+
 	@Override
 	public StringMatcher matchPattern(CharSequence needle) {
 		return new KnuthMorrisPrattMatcher(needle, computeJumpTable(needle));
@@ -61,11 +63,14 @@ public class KnuthMorrisPratt extends AbstractSequentialMultiPatternStringSearch
 
 		@Override
 		protected StringMatch doSearch(CharSequence haystack, char[] haystackArray) {
+			if (DEBUG) { System.out.println("Searching for [" + needle + "] in [" + (haystack.length() > 20 ? (haystack.subSequence(0, 20) + "...") : haystack) + "]"); }
+
 			int needleLength = needleArray.length;
 			int i = 0; // index in pattern
 			int m = 0; // index in haystack of prospective Match
 
 			while (m + i < haystackArray.length) {
+				if (DEBUG) { System.out.println("m=" + m + ", i=" + i); }
 				if (needleArray[i] == haystackArray[m + i]) {
 					i++;
 					if (i == needleLength) {
@@ -76,8 +81,8 @@ public class KnuthMorrisPratt extends AbstractSequentialMultiPatternStringSearch
 					int jump = jumpTable[i];
 
 					m = m + i - jump;
-					if (jump > 0) {
-						i = i - jump;
+					if (jump >= 0) {
+						i = jump;
 					} else {
 						i = 0;
 					}

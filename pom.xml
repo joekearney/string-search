@@ -42,5 +42,10 @@
   		<artifactId>caliper</artifactId>
   		<version>1.0-beta-SNAPSHOT</version>
   	</dependency>
+  	<dependency>
+  		<groupId>org.ahocorasick</groupId>
+  		<artifactId>ahocorasick</artifactId>
+  		<version>0.2.2</version>
+  	</dependency>
   </dependencies>
 </project>

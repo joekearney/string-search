@@ -15,4 +15,8 @@ public class KnuthMorrisPrattJumpTableTester extends TestCase {
 		int[] table = KnuthMorrisPratt.computeJumpTable("participate in parachute");
 		assertThat(Ints.asList(table), contains(-1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0));
 	}
+	public void testAaaaaaabJumpTable() throws Exception {
+		int[] table = KnuthMorrisPratt.computeJumpTable("aaaaaaab");
+		assertThat(Ints.asList(table), contains(-1, 0, 1, 2, 3, 4, 5, 6));
+	}
 }

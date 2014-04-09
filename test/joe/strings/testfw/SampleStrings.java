@@ -24,8 +24,8 @@ public final class SampleStrings {
 		PARAGRAPH_FROM_SHAKESPEARE = SHAKESPEARE.substring(sentenceLocation, sentenceLocation + PARAGRAPH_SIZE);
 	}
 
-	public static final String THOUSAND_A = Strings.repeat("a", 1000);
-	public static final String HUNDRED_A_B = Strings.repeat("a", 100) + "b";
+	public static final String MANY_A = Strings.repeat("a", 10_000_000);
+	public static final String TEN_THOUSAND_A_B = Strings.repeat("a", 10000) + "b";
 
 	private static String loadText(String name) {
 		String text;

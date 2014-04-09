@@ -1,13 +1,13 @@
 package joe.strings.testfw;
 
 import static joe.strings.testfw.SampleStrings.EMPTY_STRING;
-import static joe.strings.testfw.SampleStrings.HUNDRED_A_B;
+import static joe.strings.testfw.SampleStrings.MANY_A;
 import static joe.strings.testfw.SampleStrings.PARAGRAPH_FROM_12N;
 import static joe.strings.testfw.SampleStrings.PARAGRAPH_FROM_SHAKESPEARE;
 import static joe.strings.testfw.SampleStrings.SENTENCE;
 import static joe.strings.testfw.SampleStrings.SHAKESPEARE;
 import static joe.strings.testfw.SampleStrings.SINGLE_CHAR;
-import static joe.strings.testfw.SampleStrings.THOUSAND_A;
+import static joe.strings.testfw.SampleStrings.TEN_THOUSAND_A_B;
 import static joe.strings.testfw.SampleStrings.TWELFTH_NIGHT;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -47,8 +47,9 @@ public class SimpleExamplesTester extends AbstractStringSearchTester {
 		assertThat(match.get().getMatchIndex(), is(1));
 		assertThat(match.get().getMatchedText().toString(), is(char2));
 	}
+	@Require(absent=StringSearchFeature.EXPECTED_SLOW)
 	public void testPathologicalMiss() throws Exception {
-		expectNoMatch(HUNDRED_A_B, THOUSAND_A);
+		expectNoMatch(TEN_THOUSAND_A_B, MANY_A);
 	}
 	public void testShakespeare() throws Exception {
 		expectMatch(SENTENCE, TWELFTH_NIGHT);

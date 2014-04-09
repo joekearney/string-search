@@ -13,7 +13,7 @@ import com.google.common.collect.testing.features.TesterAnnotation;
 
 @SuppressWarnings("unchecked")
 public enum StringSearchFeature implements Feature<StringSearchAlgorithm> {
-	MULTI_PATTERN;
+	MULTI_PATTERN, EXPECTED_SLOW;
 
   private final Set<Feature<? super StringSearchAlgorithm>> implied;
 

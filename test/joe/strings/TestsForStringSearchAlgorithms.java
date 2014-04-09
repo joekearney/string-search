@@ -17,7 +17,9 @@ public class TestsForStringSearchAlgorithms {
 		testSuite.addTest(StringSearchAlgorithmTestSuiteBuilder.forAlgorithm(StringSearchAlgorithms.KNUTH_MORRIS_PRATT)
 				.withCustomTestClasses(KnuthMorrisPrattJumpTableTester.class)
 				.createTestSuite());
-		
+		testSuite.addTest(StringSearchAlgorithmTestSuiteBuilder.forAlgorithm(StringSearchAlgorithms.AHO_CORASICK_LIB)
+				.createTestSuite());
+
 		return testSuite;
 	}
 }

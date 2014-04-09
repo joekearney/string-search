@@ -7,7 +7,7 @@ package joe.strings.testfw;
  *
  * @author Joe Kearney
  */
-public final class CharSequenceExposingArray implements CharSequence {
+public final class CharSequenceExposingArray implements CharSequence, Comparable<CharSequenceExposingArray> {
 	private final char[] array;
 	private final String string;
 
@@ -25,7 +25,7 @@ public final class CharSequenceExposingArray implements CharSequence {
 		return array[index];
 	}
 	@Override
-	public CharSequence subSequence(int start, int end) {
+	public CharSequenceExposingArray subSequence(int start, int end) {
 		return CharSequenceExposingArray.forString(new String(array, start, end - start));
 	}
 
@@ -42,6 +42,13 @@ public final class CharSequenceExposingArray implements CharSequence {
 		return string;
 	}
 
+	public static String toString(CharSequence haystack) {
+		if (haystack instanceof CharSequenceExposingArray) {
+			return ((CharSequenceExposingArray) haystack).toString();
+		} else {
+			return haystack.toString();
+		}
+	}
 	public static char[] toCharArray(CharSequence haystack) {
 		final char[] array;
 		if (haystack instanceof CharSequenceExposingArray) {
@@ -54,8 +61,7 @@ public final class CharSequenceExposingArray implements CharSequence {
 		return array;
 	}
 
-	public static CharSequence forString(String string) {
+	public static CharSequenceExposingArray forString(String string) {
 		return new CharSequenceExposingArray(string);
 	}
-
 }
