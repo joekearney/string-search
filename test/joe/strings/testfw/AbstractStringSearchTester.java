@@ -14,10 +14,10 @@ public abstract class AbstractStringSearchTester extends AbstractTester<StringSe
 		assertFalse("Expected no match, found: " + match, match.isPresent());
 	}
 	protected void expectMatch(String needle, String haystack, int expectedMatchIndex) {
-		StringMatch match = searchExpectingPresent(needle, haystack);
+		StringMatch match = expectMatch(needle, haystack);
 		assertThat(match.getMatchIndex(), is(expectedMatchIndex));
 	}
-	protected StringMatch searchExpectingPresent(String needle, String haystack) {
+	protected StringMatch expectMatch(String needle, String haystack) {
 		Optional<StringMatch> match = getSubjectGenerator().createTestSubject().matchPattern(needle).search(haystack);
 		assertTrue("Expected match, found none", match.isPresent());
 		return match.get();

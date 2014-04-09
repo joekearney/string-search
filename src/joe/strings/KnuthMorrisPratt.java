@@ -1,6 +1,7 @@
 package joe.strings;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import joe.strings.testfw.CharSequenceExposingArray;
 
 import com.google.common.annotations.VisibleForTesting;
 
@@ -17,19 +18,21 @@ public class KnuthMorrisPratt extends AbstractSequentialMultiPatternStringSearch
 
 	@VisibleForTesting
 	static int[] computeJumpTable(CharSequence needle) {
-		checkArgument(needle.length() > 0, "Can't compute a KMP jumpTable for a zero-length pattern");
-		if (needle.length() == 1) {
+		char[] needleArray = CharSequenceExposingArray.toCharArray(needle);
+		int needleLength = needleArray.length;
+		checkArgument(needleLength > 0, "Can't compute a KMP jumpTable for a zero-length pattern");
+		if (needleLength == 1) {
 			return new int[] { -1 };
 		}
 
-		int[] jumpTable = new int[needle.length()];
+		int[] jumpTable = new int[needleLength];
 		jumpTable[0] = -1;
 		jumpTable[1] = 0;
 
 		int candidate = 0;
 		int pos = 2;
-		while (pos < jumpTable.length) {
-			if (needle.charAt(pos - 1) == needle.charAt(candidate)) {
+		while (pos < needleLength) {
+			if (needleArray[pos - 1] == needleArray[candidate]) {
 				// match! record that we've gone further down a prefix
 				candidate++;
 				jumpTable[pos] = candidate;
@@ -57,14 +60,15 @@ public class KnuthMorrisPratt extends AbstractSequentialMultiPatternStringSearch
 		}
 
 		@Override
-		protected StringMatch doSearch(CharSequence haystack) {
+		protected StringMatch doSearch(CharSequence haystack, char[] haystackArray) {
+			int needleLength = needleArray.length;
 			int i = 0; // index in pattern
 			int m = 0; // index in haystack of prospective Match
 
-			while (m + i < haystack.length()) {
-				if (needle.charAt(i) == haystack.charAt(m + i)) {
+			while (m + i < haystackArray.length) {
+				if (needleArray[i] == haystackArray[m + i]) {
 					i++;
-					if (i == needle.length()) {
+					if (i == needleLength) {
 						// found the match!
 						return newMatch(haystack, m);
 					}

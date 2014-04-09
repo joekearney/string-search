@@ -18,24 +18,24 @@ public final class RabinKarp extends AbstractSequentialMultiPatternStringSearchA
 		public RabinKarpMatcher(CharSequence needle) {
 			super(needle);
 			this.exitMultiplier = exitMult(needle.length());
-			needleHash = hash(needle, needle.length());
+			needleHash = hash(needleArray, needleArray.length);
 		}
 
 		@Override
-		protected StringMatch doSearch(CharSequence haystack) {
-			int windowLength = needle.length();
-			int windowHash = hash(haystack, windowLength);
+		protected StringMatch doSearch(CharSequence haystack, char[] haystackArray) {
+			int windowLength = needleArray.length;
+			int windowHash = hash(haystackArray, windowLength);
 
-			if (needleHash == windowHash && needleMatchesLinear(haystack, 0)) {
-				return newMatch(needle, 0);
+			if (needleHash == windowHash && needleMatchesLinear(haystackArray, 0)) {
+				return newMatch(haystack, 0);
 			}
 
 			int i = windowLength;
-			int haystackLength = haystack.length();
+			int haystackLength = haystackArray.length;
 			while (i < haystackLength) {
-				windowHash = updateWindowHash(haystack, windowLength, windowHash, i);
-				if (needleHash == windowHash && needleMatchesLinear(haystack, i - windowLength + 1)) {
-					return newMatch(needle, i - windowLength + 1);
+				windowHash = updateWindowHash(haystackArray, windowLength, windowHash, i);
+				if (needleHash == windowHash && needleMatchesLinear(haystackArray, i - windowLength + 1)) {
+					return newMatch(haystack, i - windowLength + 1);
 				} else {
 					i++;
 				}
@@ -44,9 +44,9 @@ public final class RabinKarp extends AbstractSequentialMultiPatternStringSearchA
 			return null;
 		}
 
-		private int updateWindowHash(CharSequence haystack, int windowLength, int windowHash, int i) {
-			int outgoing = haystack.charAt(i - windowLength);
-			int incoming = haystack.charAt(i);
+		private int updateWindowHash(char[] haystackArray, int windowLength, int windowHash, int i) {
+			int outgoing = haystackArray[i - windowLength];
+			int incoming = haystackArray[i];
 
 			windowHash -= exitMultiplier * outgoing;
 			windowHash = (windowHash * 31) + incoming;
@@ -63,10 +63,10 @@ public final class RabinKarp extends AbstractSequentialMultiPatternStringSearchA
 			return m;
 		}
 
-		private static int hash(CharSequence haystack, int length) {
+		private static int hash(char[] haystack, int length) {
 			int hash = 0;
 			for (int i = 0; i < length; i++) {
-				hash = (hash * 31) + haystack.charAt(i);
+				hash = (hash * 31) + haystack[i];
 			}
 			return hash;
 		}

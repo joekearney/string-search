@@ -16,7 +16,7 @@ public final class StringIndexOf extends AbstractSequentialMultiPatternStringSea
 		}
 
 		@Override
-		protected StringMatch doSearch(CharSequence haystack) {
+		protected StringMatch doSearch(CharSequence haystack, char[] array) {
 			int indexOf = haystack.toString().indexOf(needle.toString());
 			if (indexOf >= 0) {
 				return newMatch(haystack, indexOf);

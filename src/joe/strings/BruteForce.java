@@ -17,12 +17,12 @@ public final class BruteForce extends AbstractSequentialMultiPatternStringSearch
 		}
 
 		@Override
-		protected StringMatch doSearch(CharSequence haystack) {
-			final int length = haystack.length();
+		protected StringMatch doSearch(CharSequence haystack, char[] haystackArray) {
+			final int length = haystackArray.length;
 			int i = 0;
 			while (i < length) {
-				if (needleMatchesLinear(haystack, i)) {
-					return newMatch(haystack.subSequence(i, i + needle.length()), i);
+				if (needleMatchesLinear(haystackArray, i)) {
+					return newMatch(haystack, i);
 				}
 				i++;
 			}
