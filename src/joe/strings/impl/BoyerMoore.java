@@ -1,25 +1,23 @@
 package joe.strings.impl;
 
 import static com.google.common.base.Preconditions.checkArgument;
-
-import java.util.Arrays;
-
-import com.google.common.annotations.VisibleForTesting;
-
 import joe.strings.AbstractSequentialMultiPatternStringSearchAlgorithm;
 import joe.strings.AbstractStringMatcher;
 import joe.strings.StringMatch;
 import joe.strings.StringMatcher;
-import joe.strings.StringSearchAlgorithm;
+
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.CharMatcher;
 
 public class BoyerMoore extends AbstractSequentialMultiPatternStringSearchAlgorithm {
 	private static final int ALPHABET_SIZE = 256; //Character.MAX_VALUE;
+	
 	@Override
-	public StringMatcher matchPattern(String needle) {
+	public StringMatcher matchPattern(CharSequence needle) {
 		return new BoyerMooreMatcher(needle, computeJumpTable(needle), computeBadCharTable(needle));
 	}
 
-	private static int[] computeBadCharTable(String needle) {
+	private static int[] computeBadCharTable(CharSequence needle) {
 		int[] table = new int[ALPHABET_SIZE];
 		int needleLength = needle.length();
 		for (int i = 0; i < ALPHABET_SIZE; i++) {
@@ -32,7 +30,7 @@ public class BoyerMoore extends AbstractSequentialMultiPatternStringSearchAlgori
 	}
 	
 	@VisibleForTesting
-	static int[] computeJumpTable(String needle) {
+	static int[] computeJumpTable(CharSequence needle) {
 		checkArgument(needle.length() > 0, "Can't compute a KMP jumpTable for a zero-length pattern");
 		if (needle.length() == 1) {
 			return new int[] { -1 };
@@ -68,14 +66,14 @@ public class BoyerMoore extends AbstractSequentialMultiPatternStringSearchAlgori
 		private final int[] jumpTable;
 		private final int[] badCharRule;
 
-		public BoyerMooreMatcher(String needle, int[] jumpTable, int[] badCharRule) {
+		public BoyerMooreMatcher(CharSequence needle, int[] jumpTable, int[] badCharRule) {
 			super(needle);
 			this.jumpTable = jumpTable;
 			this.badCharRule = badCharRule;
 		}
 
 		@Override
-		protected StringMatch doSearch(CharSequence haystack) {
+		protected StringMatch doSearch(CharSequence haystack, char[] array) {
 			int i = 0; // index in pattern
 			int m = 0; // index in haystack of prospective Match
 

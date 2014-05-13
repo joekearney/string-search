@@ -1,14 +1,10 @@
 package joe.strings.testfw;
 
-import static joe.strings.testfw.SampleStrings.EMPTY_STRING;
-import static joe.strings.testfw.SampleStrings.MANY_A;
-import static joe.strings.testfw.SampleStrings.PARAGRAPH_FROM_12N;
-import static joe.strings.testfw.SampleStrings.PARAGRAPH_FROM_SHAKESPEARE;
-import static joe.strings.testfw.SampleStrings.SENTENCE;
-import static joe.strings.testfw.SampleStrings.SHAKESPEARE;
-import static joe.strings.testfw.SampleStrings.SINGLE_CHAR;
-import static joe.strings.testfw.SampleStrings.TEN_THOUSAND_A_B;
-import static joe.strings.testfw.SampleStrings.TWELFTH_NIGHT;
+import static joe.strings.testfw.AbstractStringSearchTester.SampleStrings.EMPTY_STRING;
+import static joe.strings.testfw.AbstractStringSearchTester.SampleStrings.SENTENCE;
+import static joe.strings.testfw.AbstractStringSearchTester.SampleStrings.SINGLE_CHAR;
+import static joe.strings.testfw.AbstractStringSearchTester.SampleStrings.HUNDRED_A_B;
+import static joe.strings.testfw.AbstractStringSearchTester.SampleStrings.THOUSAND_A;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import joe.strings.StringMatch;
@@ -49,14 +45,11 @@ public class SimpleExamplesTester extends AbstractStringSearchTester {
 	}
 	@Require(absent=StringSearchFeature.EXPECTED_SLOW)
 	public void testPathologicalMiss() throws Exception {
-		expectNoMatch(TEN_THOUSAND_A_B, MANY_A);
+		expectNoMatch(HUNDRED_A_B, THOUSAND_A);
 	}
-	public void testShakespeare() throws Exception {
-		expectMatch(SENTENCE, TWELFTH_NIGHT);
-		expectMatch(PARAGRAPH_FROM_12N, TWELFTH_NIGHT);
-		expectMatch(SENTENCE, SHAKESPEARE);
-		expectMatch(PARAGRAPH_FROM_SHAKESPEARE, SHAKESPEARE);
-	}
+//	public void testShakespeare() throws Exception {
+//		expectMatch(SENTENCE, TWELFTH_NIGHT);
+//	}
 
 	private void expectMatchesSelf(String text) {
 		StringMatch match = expectMatch(text, text);

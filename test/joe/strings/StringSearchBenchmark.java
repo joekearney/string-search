@@ -1,6 +1,6 @@
 package joe.strings;
 
-import static joe.strings.testfw.SampleStrings.*;
+import static joe.strings.testfw.AbstractStringSearchTester.SampleStrings.*;
 
 import com.google.caliper.Benchmark;
 import com.google.caliper.Param;

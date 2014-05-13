@@ -1,5 +1,9 @@
 package joe.strings;
 
+import joe.strings.impl.BruteForce;
+import joe.strings.impl.KnuthMorrisPratt;
+import joe.strings.impl.RabinKarp;
+import joe.strings.impl.StringIndexOf;
 import joe.strings.testfw.StringSearchFeature;
 
 import com.google.common.base.Supplier;

@@ -1,5 +1,6 @@
 package joe.strings;
 
+import joe.strings.impl.KnuthMorrisPrattJumpTableTester;
 import joe.strings.testfw.StringSearchAlgorithmTestSuiteBuilder;
 import junit.framework.Test;
 import junit.framework.TestSuite;

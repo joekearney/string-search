@@ -64,4 +64,9 @@ public final class CharSequenceExposingArray implements CharSequence, Comparable
 	public static CharSequenceExposingArray forString(String string) {
 		return new CharSequenceExposingArray(string);
 	}
+
+	@Override
+	public int compareTo(CharSequenceExposingArray o) {
+		return this.string.compareTo(o.string);
+	}
 }
