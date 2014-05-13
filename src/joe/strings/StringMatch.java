@@ -6,11 +6,11 @@ package joe.strings;
  * @author Joe Kearney
  */
 public final class StringMatch {
-	private final String needle;
+	private final CharSequence needle;
 	private final CharSequence haystack;
 	private final int from;
 
-	public StringMatch(String needle, CharSequence haystack, int from) {
+	public StringMatch(CharSequence needle, CharSequence haystack, int from) {
 		this.needle = needle;
 		this.haystack = haystack;
 		this.from = from;
@@ -19,7 +19,7 @@ public final class StringMatch {
 	public CharSequence getMatchedText() {
 		return haystack;
 	}
-	public String getPattern() {
+	public CharSequence getPattern() {
 		return needle;
 	}
 	public int getMatchIndex() {

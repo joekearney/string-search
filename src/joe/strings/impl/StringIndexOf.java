@@ -7,23 +7,24 @@ import joe.strings.StringMatcher;
 import joe.strings.StringSearchAlgorithm;
 
 /**
- * Implementation of {@link StringSearchAlgorithm} delegating to {@link String#indexOf(String)}.
- * 
+ * Implementation of {@link StringSearchAlgorithm} delegating to {@link String#indexOf(String)}. This is really fast, likely due to intrinsified instructions in
+ * the SSE 4.2 instruction set. // TODO benchmark without intrinsifying this?
+ *
  * @author Joe Kearney
  */
 public final class StringIndexOf extends AbstractSequentialMultiPatternStringSearchAlgorithm {
 	@Override
-	public StringMatcher matchPattern(String needle) {
+	public StringMatcher matchPattern(CharSequence needle) {
 		return new StringIndexOfMatcher(needle);
 	}
 	private static final class StringIndexOfMatcher extends AbstractStringMatcher {
-		StringIndexOfMatcher(String needle) {
+		StringIndexOfMatcher(CharSequence needle) {
 			super(needle);
 		}
 
 		@Override
-		protected StringMatch doSearch(CharSequence haystack) {
-			int indexOf = haystack.toString().indexOf(needle);
+		protected StringMatch doSearch(CharSequence haystack, char[] array) {
+			int indexOf = haystack.toString().indexOf(needle.toString());
 			if (indexOf >= 0) {
 				return newMatch(haystack, indexOf);
 			} else {

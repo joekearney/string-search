@@ -1,39 +1,39 @@
-package joe.strings.impl;
+package joe.strings;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import joe.strings.AbstractSequentialMultiPatternStringSearchAlgorithm;
-import joe.strings.AbstractStringMatcher;
-import joe.strings.StringMatch;
-import joe.strings.StringMatcher;
 
 import com.google.common.annotations.VisibleForTesting;
 
 /**
- * Implementation of KMP string searching.
+ * 
  * 
  * @author Joe Kearney
  */
 public class KnuthMorrisPratt extends AbstractSequentialMultiPatternStringSearchAlgorithm {
+	private static final boolean DEBUG = false;
+
 	@Override
-	public StringMatcher matchPattern(String needle) {
+	public StringMatcher matchPattern(CharSequence needle) {
 		return new KnuthMorrisPrattMatcher(needle, computeJumpTable(needle));
 	}
 
 	@VisibleForTesting
-	static int[] computeJumpTable(String needle) {
-		checkArgument(needle.length() > 0, "Can't compute a KMP jumpTable for a zero-length pattern");
-		if (needle.length() == 1) {
+	static int[] computeJumpTable(CharSequence needle) {
+		char[] needleArray = CharSequenceExposingArray.toCharArray(needle);
+		int needleLength = needleArray.length;
+		checkArgument(needleLength > 0, "Can't compute a KMP jumpTable for a zero-length pattern");
+		if (needleLength == 1) {
 			return new int[] { -1 };
 		}
 
-		int[] jumpTable = new int[needle.length()];
+		int[] jumpTable = new int[needleLength];
 		jumpTable[0] = -1;
 		jumpTable[1] = 0;
 
 		int candidate = 0;
 		int pos = 2;
-		while (pos < jumpTable.length) {
-			if (needle.charAt(pos - 1) == needle.charAt(candidate)) {
+		while (pos < needleLength) {
+			if (needleArray[pos - 1] == needleArray[candidate]) {
 				// match! record that we've gone further down a prefix
 				candidate++;
 				jumpTable[pos] = candidate;
@@ -55,29 +55,33 @@ public class KnuthMorrisPratt extends AbstractSequentialMultiPatternStringSearch
 	private static final class KnuthMorrisPrattMatcher extends AbstractStringMatcher {
 		private final int[] jumpTable;
 
-		public KnuthMorrisPrattMatcher(String needle, int[] jumpTable) {
+		public KnuthMorrisPrattMatcher(CharSequence needle, int[] jumpTable) {
 			super(needle);
 			this.jumpTable = jumpTable;
 		}
 
 		@Override
-		protected StringMatch doSearch(CharSequence haystack) {
+		protected StringMatch doSearch(CharSequence haystack, char[] haystackArray) {
+			if (DEBUG) { System.out.println("Searching for [" + needle + "] in [" + (haystack.length() > 20 ? (haystack.subSequence(0, 20) + "...") : haystack) + "]"); }
+
+			int needleLength = needleArray.length;
 			int i = 0; // index in pattern
 			int m = 0; // index in haystack of prospective Match
 
-			while (m + i < haystack.length()) {
-				if (needle.charAt(i) == haystack.charAt(m + i)) {
+			while (m + i < haystackArray.length) {
+				if (DEBUG) { System.out.println("m=" + m + ", i=" + i); }
+				if (needleArray[i] == haystackArray[m + i]) {
 					i++;
-					if (i == needle.length()) {
+					if (i == needleLength) {
 						// found the match!
 						return newMatch(haystack, m);
 					}
 				} else {
 					int jump = jumpTable[i];
-					
+
 					m = m + i - jump;
-					if (jump > 0) {
-						i = i - jump;
+					if (jump >= 0) {
+						i = jump;
 					} else {
 						i = 0;
 					}
