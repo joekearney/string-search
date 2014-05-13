@@ -1,11 +1,15 @@
-package joe.strings;
+package joe.strings.impl;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import joe.strings.AbstractSequentialMultiPatternStringSearchAlgorithm;
+import joe.strings.AbstractStringMatcher;
+import joe.strings.StringMatch;
+import joe.strings.StringMatcher;
 
 import com.google.common.annotations.VisibleForTesting;
 
 /**
- * 
+ * Implementation of KMP string searching.
  * 
  * @author Joe Kearney
  */

@@ -1,4 +1,10 @@
-package joe.strings;
+package joe.strings.impl;
+
+import joe.strings.AbstractSequentialMultiPatternStringSearchAlgorithm;
+import joe.strings.AbstractStringMatcher;
+import joe.strings.StringMatch;
+import joe.strings.StringMatcher;
+import joe.strings.StringSearchAlgorithm;
 
 /**
  * Implementation of {@link StringSearchAlgorithm} delegating to {@link String#indexOf(String)}.

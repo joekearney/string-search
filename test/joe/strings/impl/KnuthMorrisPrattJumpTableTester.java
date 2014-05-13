@@ -1,7 +1,8 @@
-package joe.strings;
+package joe.strings.impl;
 
 import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.assertThat;
+import joe.strings.impl.KnuthMorrisPratt;
 import junit.framework.TestCase;
 
 import com.google.common.primitives.Ints;

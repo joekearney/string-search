@@ -1,4 +1,9 @@
-package joe.strings;
+package joe.strings.impl;
+
+import joe.strings.AbstractSequentialMultiPatternStringSearchAlgorithm;
+import joe.strings.AbstractStringMatcher;
+import joe.strings.StringMatch;
+import joe.strings.StringMatcher;
 
 /**
  * Brute force approach to string searching. For every index into the haystack we test to see whether the needle matches the next characters

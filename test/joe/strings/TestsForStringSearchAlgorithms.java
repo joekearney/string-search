@@ -1,5 +1,6 @@
 package joe.strings;
 
+import joe.strings.impl.KnuthMorrisPrattJumpTableTester;
 import joe.strings.testfw.StringSearchAlgorithmTestSuiteBuilder;
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -16,6 +17,8 @@ public class TestsForStringSearchAlgorithms {
 				.createTestSuite());
 		testSuite.addTest(StringSearchAlgorithmTestSuiteBuilder.forAlgorithm(StringSearchAlgorithms.KNUTH_MORRIS_PRATT)
 				.withCustomTestClasses(KnuthMorrisPrattJumpTableTester.class)
+				.createTestSuite());
+		testSuite.addTest(StringSearchAlgorithmTestSuiteBuilder.forAlgorithm(StringSearchAlgorithms.BOYER_MOORE)
 				.createTestSuite());
 		
 		return testSuite;

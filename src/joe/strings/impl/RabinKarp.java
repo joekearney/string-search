@@ -1,4 +1,9 @@
-package joe.strings;
+package joe.strings.impl;
+
+import joe.strings.AbstractSequentialMultiPatternStringSearchAlgorithm;
+import joe.strings.AbstractStringMatcher;
+import joe.strings.StringMatch;
+import joe.strings.StringMatcher;
 
 /**
  * String searching that keeps track of a hash of a rolling window of the haystack the same length as the needle.
