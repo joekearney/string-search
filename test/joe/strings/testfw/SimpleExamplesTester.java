@@ -1,6 +1,6 @@
 package joe.strings.testfw;
 
-import static joe.strings.testfw.SampleStrings.*;
+import static joe.strings.testfw.AbstractStringSearchTester.SampleStrings.*;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import joe.strings.StringMatch;
