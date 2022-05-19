@@ -1,8 +1,7 @@
 package libjoe.strings;
 
+import java.util.Optional;
 import libjoe.strings.util.CharSequenceExposingArray;
-
-import com.google.common.base.Optional;
 
 public abstract class AbstractStringMatcher implements StringMatcher {
 	protected final CharSequence needle;
@@ -17,9 +16,10 @@ public abstract class AbstractStringMatcher implements StringMatcher {
 	public final Optional<StringMatch> search(CharSequence haystack) {
 		int windowLength = needle.length();
 		if (haystack.length() < windowLength) {
-			return Optional.absent();
+			return Optional.empty();
 		} else {
-			return Optional.fromNullable(doSearch(haystack, CharSequenceExposingArray.toCharArray(haystack)));
+			return Optional.ofNullable(
+          doSearch(haystack, CharSequenceExposingArray.toCharArray(haystack)));
 		}
 	}
 

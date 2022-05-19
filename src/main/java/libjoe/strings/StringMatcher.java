@@ -1,6 +1,6 @@
 package libjoe.strings;
 
-import com.google.common.base.Optional;
+import java.util.Optional;
 
 /**
  * A {@code StringMatcher} can perform a search over a text. Any required pre-processing of the pattern(s) has been done in creating this object.

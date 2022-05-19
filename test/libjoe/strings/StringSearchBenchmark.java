@@ -1,14 +1,17 @@
 package libjoe.strings;
 
-import static libjoe.strings.util.SampleStrings.*;
-import libjoe.strings.StringMatch;
-import libjoe.strings.StringMatcher;
-import libjoe.strings.StringSearchAlgorithms;
+import static libjoe.strings.util.SampleStrings.HUNDRED_A_B;
+import static libjoe.strings.util.SampleStrings.PARAGRAPH;
+import static libjoe.strings.util.SampleStrings.SENTENCE;
+import static libjoe.strings.util.SampleStrings.SINGLE_CHAR;
+import static libjoe.strings.util.SampleStrings.THOUSAND_A;
+import static libjoe.strings.util.SampleStrings.TWELFTH_NIGHT;
+import static libjoe.strings.util.SampleStrings.WORD;
 
 import com.google.caliper.Benchmark;
 import com.google.caliper.Param;
 import com.google.caliper.runner.CaliperMain;
-import com.google.common.base.Optional;
+import java.util.Optional;
 
 public class StringSearchBenchmark extends Benchmark {
 	enum BenchmarkCases {

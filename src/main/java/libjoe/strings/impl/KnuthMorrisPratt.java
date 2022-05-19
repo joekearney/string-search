@@ -24,8 +24,7 @@ public class KnuthMorrisPratt extends AbstractSequentialMultiPatternStringSearch
 
 	@VisibleForTesting
 	static int[] computeJumpTable(CharSequence needle) {
-		char[] needleArray = CharSequenceExposingArray.toCharArray(needle);
-		int needleLength = needleArray.length;
+		int needleLength = needle.length();
 		checkArgument(needleLength > 0, "Can't compute a KMP jumpTable for a zero-length pattern");
 		if (needleLength == 1) {
 			return new int[] { -1 };
@@ -38,7 +37,7 @@ public class KnuthMorrisPratt extends AbstractSequentialMultiPatternStringSearch
 		int candidate = 0;
 		int pos = 2;
 		while (pos < needleLength) {
-			if (needleArray[pos - 1] == needleArray[candidate]) {
+			if (needle.charAt(pos - 1) == needle.charAt(candidate)) {
 				// match! record that we've gone further down a prefix
 				candidate++;
 				jumpTable[pos] = candidate;

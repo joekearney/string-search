@@ -1,8 +1,7 @@
 package libjoe.strings;
 
+import java.util.Optional;
 import java.util.Set;
-
-import com.google.common.base.Optional;
 
 /**
  * A support class to adapt
@@ -30,7 +29,7 @@ public abstract class AbstractSequentialMultiPatternStringSearchAlgorithm implem
 					return match;
 				}
 			}
-			return Optional.absent();
+			return Optional.empty();
 		}
 	}
 }

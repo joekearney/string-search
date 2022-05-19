@@ -7,11 +7,11 @@ import static libjoe.strings.util.SampleStrings.SINGLE_CHAR;
 import static libjoe.strings.util.SampleStrings.THOUSAND_A;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+
+import com.google.common.collect.ImmutableSet;
+import java.util.Optional;
 import libjoe.strings.StringMatch;
 import libjoe.strings.testfw.StringSearchFeature.Require;
-
-import com.google.common.base.Optional;
-import com.google.common.collect.ImmutableSet;
 
 public class SimpleExamplesTester extends AbstractStringSearchTester {
 	public void testShortStringMatchesSelf() throws Exception {

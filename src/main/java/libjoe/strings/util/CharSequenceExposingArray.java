@@ -42,13 +42,6 @@ public final class CharSequenceExposingArray implements CharSequence, Comparable
 		return string;
 	}
 
-	public static String toString(CharSequence haystack) {
-		if (haystack instanceof CharSequenceExposingArray) {
-			return ((CharSequenceExposingArray) haystack).toString();
-		} else {
-			return haystack.toString();
-		}
-	}
 	public static char[] toCharArray(CharSequence haystack) {
 		final char[] array;
 		if (haystack instanceof CharSequenceExposingArray) {
